@@ -8,5 +8,41 @@ class InMemoryLibraryRepository : LibraryRepository {
     private val books = mutableMapOf<String, Book>()
     private val patrons = mutableMapOf<String, Patron>()
 
-    TODO: Implement the methods to manage books and patrons in memory
+    override fun addBook(book: Book): Boolean {
+        return if (books.containsKey(book.isbn)) {
+            false
+        } else {
+            books[book.isbn] = book
+            true
+        }
+    }
+
+    override fun findBook(isbn: String): Book? {
+        return books[isbn]
+    }
+
+    override fun updateBook(book: Book) {
+        books[book.isbn] = book
+    }
+
+    override fun addPatron(patron: Patron): Boolean {
+        return if (patrons.containsKey(patron.id)) {
+            false
+        } else {
+            patrons[patron.id] = patron
+            true
+        }
+    }
+
+    override fun findPatron(id: String): Patron? {
+        return patrons[id]
+    }
+
+    override fun updatePatron(patron: Patron) {
+        patrons[patron.id] = patron
+    }
+
+    override fun getAllBooks(): List<Book> {
+        return books.values.toList()
+    }
 }
